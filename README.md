@@ -13,3 +13,7 @@ I generate simulated FMCW returns and convert them to range-Doppler maps.
 ## Classical detectors
 
 I implemented CA-, GO-, and OS-CFAR and a detector that uses the known noise level.
+
+## Tests
+
+Run `uv run pytest -q --basetemp=.pytest-tmp`.
