@@ -17,3 +17,7 @@ I implemented CA-, GO-, and OS-CFAR and a detector that uses the known noise lev
 ## Tests
 
 Run `uv run pytest -q --basetemp=.pytest-tmp`.
+
+## Benchmark
+
+Run `uv run python scripts/verify_baseline.py` to check the simulator against theory and `uv run python scripts/run_classical_benchmark.py` to compare detectors.
