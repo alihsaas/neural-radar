@@ -21,3 +21,7 @@ Run `uv run pytest -q --basetemp=.pytest-tmp`.
 ## Benchmark
 
 Run `uv run python scripts/verify_baseline.py` to check the simulator against theory and `uv run python scripts/run_classical_benchmark.py` to compare detectors.
+
+## Classical results
+
+I recorded the [baseline checks](results/baseline/) and [classical detector comparison](results/classical_benchmark/).

@@ -1,0 +1,154 @@
+{
+  "protocol": {
+    "name": "detection",
+    "false_alarm_rate": 0.0001,
+    "roc_false_alarm_rates": [
+      1e-05,
+      0.0001,
+      0.001
+    ],
+    "window": "hann",
+    "calibration": {
+      "frames": 600,
+      "seed": 3001,
+      "stream": 0
+    },
+    "test": {
+      "seed": 5001,
+      "snr_db": [
+        8,
+        12,
+        16,
+        20,
+        24,
+        28
+      ],
+      "frames_per_snr": 250,
+      "scenarios": [
+        "homogeneous",
+        "dense",
+        "clutter_edge",
+        "k_clutter",
+        "interference"
+      ]
+    },
+    "scenarios": {
+      "homogeneous": {
+        "targets": [
+          1,
+          4
+        ],
+        "swerling": 1,
+        "in_training": true
+      },
+      "dense": {
+        "targets": [
+          6,
+          10
+        ],
+        "swerling": 1,
+        "cluster_fraction": 0.6,
+        "in_training": true
+      },
+      "clutter_edge": {
+        "targets": [
+          1,
+          4
+        ],
+        "swerling": 1,
+        "edge_range": [
+          30,
+          90
+        ],
+        "clutter_to_noise_db": 15.0,
+        "in_training": true
+      },
+      "k_clutter": {
+        "targets": [
+          1,
+          4
+        ],
+        "swerling": 1,
+        "k_shape": 0.5,
+        "in_training": false
+      },
+      "interference": {
+        "targets": [
+          1,
+          4
+        ],
+        "swerling": 1,
+        "interference_chirps": 4,
+        "interference_length": 12,
+        "interference_inr_db": 25.0,
+        "in_training": false
+      }
+    },
+    "training": {
+      "seed": 7001,
+      "train_frames": 12000,
+      "validation_frames": 2000,
+      "mixture": {
+        "homogeneous": 0.4,
+        "dense": 0.3,
+        "clutter_edge": 0.3
+      },
+      "snr_range_db": [
+        6.0,
+        30.0
+      ],
+      "empty_fraction": 0.1
+    },
+    "neural": {
+      "runs": [
+        {
+          "name": "cnn_unet",
+          "architecture": "unet"
+        },
+        {
+          "name": "cnn_local",
+          "architecture": "local"
+        }
+      ],
+      "seeds": [
+        11,
+        22,
+        33
+      ],
+      "epochs": 15,
+      "batch_size": 32,
+      "learning_rate": 0.002,
+      "weight_decay": 0.0001,
+      "positive_weight": 30.0,
+      "selection": "epoch with the lowest validation loss (validation frames only)"
+    },
+    "paths": {
+      "classical_results": "results/classical_benchmark",
+      "datasets": ".runtime/datasets",
+      "checkpoints": "checkpoints/detection",
+      "neural_results": "results/neural_detection"
+    }
+  },
+  "thresholds": {
+    "oracle": 9.142027867460781,
+    "ca_cfar": 9.780052886028951,
+    "go_cfar": 9.186786907650921,
+    "os_cfar": 7.1349015711501975,
+    "ca_cfar_3x3": 5.164651665933065
+  },
+  "detectors": {
+    "oracle": "Known thermal noise level (not realizable)",
+    "ca_cfar": "Cell-averaging CFAR, 2-D ring of training cells",
+    "go_cfar": "Greatest-of CFAR, leading/lagging halves in range",
+    "os_cfar": "Ordered-statistic CFAR, 75th percentile of training cells",
+    "ca_cfar_3x3": "Cell-averaging CFAR on the 3 x 3 summed map (non-coherent energy integration)"
+  },
+  "training_cells": 248,
+  "versions": {
+    "python": "3.12.13",
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "matplotlib": "3.11.2",
+    "torch": "2.9.1+cu128"
+  }
+}
