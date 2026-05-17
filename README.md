@@ -25,3 +25,7 @@ Run `uv run python scripts/verify_baseline.py` to check the simulator against th
 ## Classical results
 
 I recorded the [baseline checks](results/baseline/) and [classical detector comparison](results/classical_benchmark/).
+
+## Learned detectors
+
+I compare a small U-Net and a local CNN with the classical detectors at the same false-alarm rate. Install the neural extra with `uv sync --locked --extra neural`. Run `uv run --extra neural python scripts/train_detector.py` and `uv run --extra neural python scripts/evaluate_detector.py`.
