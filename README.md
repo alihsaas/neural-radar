@@ -31,3 +31,7 @@ I recorded the [baseline checks](results/baseline/) and [classical detector comp
 I compare a small U-Net and a local CNN with the classical detectors at the same false-alarm rate. Install the neural extra with `uv sync --locked --extra neural`. Run `uv run --extra neural python scripts/train_detector.py` and `uv run --extra neural python scripts/evaluate_detector.py`.
 
 The learned detection results are in [results/neural_detection](results/neural_detection/).
+
+## Neighbouring-cell diagnostic
+
+Run `uv run --extra neural python scripts/diagnose_neighbour_gain.py` to reproduce the diagnostic.
