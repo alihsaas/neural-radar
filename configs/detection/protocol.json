@@ -1,0 +1,48 @@
+{
+  "name": "detection",
+  "false_alarm_rate": 0.0001,
+  "roc_false_alarm_rates": [0.00001, 0.0001, 0.001],
+  "window": "hann",
+  "calibration": {"frames": 600, "seed": 3001, "stream": 0},
+  "test": {
+    "seed": 5001,
+    "snr_db": [8, 12, 16, 20, 24, 28],
+    "frames_per_snr": 250,
+    "scenarios": ["homogeneous", "dense", "clutter_edge", "k_clutter", "interference"]
+  },
+  "scenarios": {
+    "homogeneous": {"targets": [1, 4], "swerling": 1, "in_training": true},
+    "dense": {"targets": [6, 10], "swerling": 1, "cluster_fraction": 0.6, "in_training": true},
+    "clutter_edge": {"targets": [1, 4], "swerling": 1, "edge_range": [30, 90], "clutter_to_noise_db": 15.0, "in_training": true},
+    "k_clutter": {"targets": [1, 4], "swerling": 1, "k_shape": 0.5, "in_training": false},
+    "interference": {"targets": [1, 4], "swerling": 1, "interference_chirps": 4, "interference_length": 12, "interference_inr_db": 25.0, "in_training": false}
+  },
+  "training": {
+    "seed": 7001,
+    "train_frames": 12000,
+    "validation_frames": 2000,
+    "mixture": {"homogeneous": 0.4, "dense": 0.3, "clutter_edge": 0.3},
+    "snr_range_db": [6.0, 30.0],
+    "empty_fraction": 0.1
+  },
+  "diagnostics": {"seed": 9001, "frames_per_snr": 300, "empty_frames": 300, "snr_db": [12, 16, 20], "checkpoint": "cnn_unet_seed11"},
+  "neural": {
+    "runs": [
+      {"name": "cnn_unet", "architecture": "unet"},
+      {"name": "cnn_local", "architecture": "local"}
+    ],
+    "seeds": [11, 22, 33],
+    "epochs": 15,
+    "batch_size": 32,
+    "learning_rate": 0.002,
+    "weight_decay": 0.0001,
+    "positive_weight": 30.0,
+    "selection": "epoch with the lowest validation loss (validation frames only)"
+  },
+  "paths": {
+    "classical_results": "results/classical_benchmark",
+    "datasets": ".runtime/datasets",
+    "checkpoints": "checkpoints/detection",
+    "neural_results": "results/neural_detection"
+  }
+}
