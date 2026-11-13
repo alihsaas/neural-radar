@@ -1,0 +1,26 @@
+{
+  "radar": {
+    "carrier_hz": 77000000000.0,
+    "bandwidth_hz": 150000000.0,
+    "samples_per_chirp": 128,
+    "chirps": 64,
+    "chirp_interval_s": 4e-05,
+    "range_resolution_m": 0.9993081933333333,
+    "max_range_m": 127.91144874666666,
+    "velocity_resolution_mps": 0.7604313565340908,
+    "max_velocity_mps": 24.333803409090905,
+    "coherent_gain_db": 39.133899436317556,
+    "hann_peak_gain_db": 35.61207425520393,
+    "training_cells": 248
+  },
+  "root_seed": 1001,
+  "noise_frames": 2000,
+  "pd_frames_per_point": 400,
+  "versions": {
+    "python": "3.12.13",
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "matplotlib": "3.11.2",
+    "torch": "2.9.1+cu128"
+  }
+}
